@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	th:fragment="layout(contect)">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.rtl.min.css"
+	integrity="sha384-dc2NSrAXbAkjrdm9IYrX10fQq9SDG6Vjz7nQVKdKcJl3pC+k37e7qJR5MVSCS+wR"
+	crossorigin="anonymous">
+
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+	integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+	crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" th:href="@{/css/style.css}">
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script type="text/javascript">
+	function addUser() {
+		var data = {
+			name : $("#name").val(),
+			email : $("#email").val(),
+			password : $("#password").val(),
+			about : $("#about").val(),
+		
+		};
+		if ($('#agreement').is(":checked")) {
+			
+		} else {
+			alert("You have not agreed the terms and conditions !!")
+			return;
+		}
+		$.ajax({
+			url : '/do_register',
+			data : JSON.stringify(data),
+			contentType : 'application/json ',
+			type : 'POST',
+			dataType : 'json',
+			success : function() {
+				swal("Good job!", "congrates !! Record Added Successful !!",
+						"success")
+			},
+			error : function() {
+				swal("Failed !!", " Something Went to wrong !!" ,
+						"error");
+			}
+		})
+		
+	};
+</script>
+<title th:text="${title}"></title>
+<link rel="icon"
+	href="data:image/png;base64,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" type="image/x-icon">
+</head>
+<body>
+	<!--navbar Start  -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Contact Manager</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto text-uppercase">
+					<li class="nav-item active"><a class="nav-link" th:href="@{/}">Home</a></li>
+					<li class="nav-item"><a class="nav-link"
+						th:href="@{/user/index}" aria-disabled="true">Login</a></li>
+					<li class="nav-item"><a class="nav-link" th:href="@{/signup}"
+						aria-disabled="true">Signup</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- End navbar -->
+
+	<div th:replace="${contect}"></div>
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+		crossorigin="anonymous"></script>
+	<script type="text/javascript" th:src="@{/js/script.js}"></script>
+
+
+
+
+</body>
+</html>

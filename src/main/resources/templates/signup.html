@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+
+<body>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="my-card mt-3">
+					<!-- <div th:if="${session.message}" id="successMessage"
+						style="display: block" th:classappend="${session.message.type}"
+						class="alert" role="alert">
+						<p class="text-center" th:text="${session.message.content}"></p>
+					</div> -->
+					<div class="container text-center">
+						<img style="width: 80px;" alt="" th:src="@{/img/register.png}">
+					</div>
+					<h1 class="text-center">Register Here !!...</h1>
+					<!-- <form id="register" action="" th:action="@{/do_register}" method="post"
+						th:object="${user}"> -->
+						<form>
+						<div class="mb-3">
+							<label for="name" class="form-label">Your Name</label> <input
+								type="text" class="form-control" name="name" id="name"
+								aria-describedby="emailHelp" placeholder="Enter Your Name here" required="required"
+								th:value="${user.name}" minlength="5" maxlength="20">
+						</div>
+						<div class="mb-3">
+							<label for="email" class="form-label">Your Email</label> <input
+								type="email" name="email" class="form-control" id="email"
+								 placeholder="Enter Your E-Mail Here.."
+								required="required" th:value="${user.email}">
+						</div>
+						<div class="mb-3">
+							<label for="password" class="form-label">Password</label> <input
+								type="password" name="password" class="form-control"
+								id="password" placeholder="Enter here" required="required"
+								th:value="${user.password}">
+						</div>
+						<div class="form-group">
+							<textarea name="about" th:text="${user.about}" id="about"
+								placeholder="Enter something yourself" rows="11"
+								class="form-control text-dark"> 
+									</textarea>
+						</div>
+						<div class="text-center">
+							<input type="checkbox" name="agreement" class="form-check-input"
+								id="agreement" /> <label for="agreement">accept terms
+								and conditions</label>
+						</div>
+						<div class="container text-center">
+							<button type="button" th:onclick="| addUser() |" id="submitButton" class="btn bg-primary text-white">Submit
+							</button>	
+							
+							<!-- <button type="submit" id="submitButton" class="btn bg-primary text-white">Submit
+							</button>	 -->			
+							<button type="reset" class="btn btn-warning">Reset</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

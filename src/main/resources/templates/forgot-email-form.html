@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section>
+		<div class="wrapper" style="min-height: 411px;">
+			<div class="logo">
+				<img th:src="@{/img/user.png}" alt="">
+			</div>
+			<div th:if="${session.message}" class="container">
+				<div class="alert alert-danger my-2 text-center" role="alert">
+					<span th:text="${session.message}"> </span>
+				</div>
+			</div>
+			<div class="text-center mt-4 name">Your Registered Email</div>
+
+			<form class="p-3 mt-3" th:action="@{/send-otp}" method="post">
+
+				<div class="form-field d-flex align-items-center">
+
+					<span class="far fa-user"></span> <input type="email"
+						required="required" name="email" id="email"
+						placeholder="Enter Email here.. ">
+				</div>
+				<button class="btn mt-4">Send OTP</button>
+				<a href="/signin">!</a>
+			</form>
+
+		</div>
+	</section>
+</body>
+</html>

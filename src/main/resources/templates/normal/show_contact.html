@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+<title>User Dashboard</title>
+</head>
+<body>
+	<section>
+		<div class="card mr-3 ml-3" >
+			<div class="card-body">
+				<h1 class="text-center">Your Contacts</h1>
+				<div class="table-responsive">
+					<table class="table table-hover" id="contactTable">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">Name</th>
+								<th scope="col">Email</th>
+								<th scope="col">Phone</th>
+								<th scope="col">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:each="c:${contacts}">
+								<th scope="row" th:text="${'SCMUSER'+c.cId}"></th>
+								<td><img class="my_profile_image"
+									th:src="@{'/img/'+${c.image}}"> <span th:text=${c.name}></span>
+								</td>
+								<td><a th:href="@{'/user/contact/'+${c.cId}}"> <span
+										th:text=${c.email}></span>
+								</a></td>
+								<td th:text=${c.phone}></td>
+								<td>
+
+									<div style="float: right;">
+										<a href="#" th:onclick="| deleteContact(${c.cId}) |"
+											class="btn btn-outline-danger">Delete</a>
+									</div>
+									<div>
+										<form method="post"
+											th:action="@{'/user/update-contact/'+${c.cId}}" class="">
+											<button type="submit" class="btn btn-outline-primary ">Update</button>
+										</form>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript">
+			$(document).ready(function() {
+				$('#contactTable').DataTable();
+			});
+				$(document).ready(()=>{
+				$(".item").removeClass("active");
+				$("#contacts-link").addClass("active");
+			})
+	</script>
+</body>
+</html>
